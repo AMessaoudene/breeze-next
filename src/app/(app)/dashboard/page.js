@@ -5,6 +5,7 @@ import { DisplayOffers } from '@/components/DisplayOffers'
 import { OffersForm } from '@/components/OffersForm'
 import { OfferLinesForm } from '@/components/OfferLinesForm'
 import { DisplayOfferLines } from '@/components/DisplayOfferLines'
+import { OfferLinesStatusesForm } from '@/components/OfferLinesStatusesForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -24,6 +25,7 @@ const Dashboard = () => {
                             <OffersForm/>
                             <DisplayOfferLines/>
                             <OfferLinesForm/>
+                            <OfferLinesStatusesForm/>
                         </div>
                     </div>
                 </div>
