@@ -26,6 +26,15 @@ export const DisplayProducts = () => {
                         <Link href={`/products/${product.id}`}>
                             {product.name}
                         </Link>
+                        <ul>
+                            {(product.medias || []).map(media => (
+                                <li key={media.id}>
+                                    <a href={media.link} target="_blank" rel="noopener noreferrer">
+                                        {media.link}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
                     </li>
                 ))}
             </ul>

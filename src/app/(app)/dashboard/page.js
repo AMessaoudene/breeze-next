@@ -11,9 +11,11 @@ import { StoreCategoriesForm } from '@/components/StoreCategoriesForm'
 import { DisplayAccounts } from '@/components/DisplayAccounts'
 import { ContactsForm } from '@/components/ContactsForm'
 import { DisplayContactsForm } from '@/components/DisplayContactsForm'
+import { ProductsForm } from '@/components/ProductsForm'
 
 export const metadata = {
     title: 'Dashboard',
+    description: 'Dashboard',
 }
 
 const Dashboard = () => {
@@ -36,6 +38,7 @@ const Dashboard = () => {
                             <DisplayAccounts/>
                             <ContactsForm/>
                             <DisplayContactsForm/>
+                            <ProductsForm/>
                         </div>
                     </div>
                 </div>
