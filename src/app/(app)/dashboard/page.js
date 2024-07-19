@@ -6,6 +6,11 @@ import { OffersForm } from '@/components/OffersForm'
 import { OfferLinesForm } from '@/components/OfferLinesForm'
 import { DisplayOfferLines } from '@/components/DisplayOfferLines'
 import { OfferLinesStatusesForm } from '@/components/OfferLinesStatusesForm'
+import { DisplayOfferLinesStatuses } from '@/components/DisplayOfferLinesStatuses'
+import { StoreCategoriesForm } from '@/components/StoreCategoriesForm'
+import { DisplayAccounts } from '@/components/DisplayAccounts'
+import { ContactsForm } from '@/components/ContactsForm'
+import { DisplayContactsForm } from '@/components/DisplayContactsForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -26,6 +31,11 @@ const Dashboard = () => {
                             <DisplayOfferLines/>
                             <OfferLinesForm/>
                             <OfferLinesStatusesForm/>
+                            <DisplayOfferLinesStatuses/>
+                            <StoreCategoriesForm/>
+                            <DisplayAccounts/>
+                            <ContactsForm/>
+                            <DisplayContactsForm/>
                         </div>
                     </div>
                 </div>
