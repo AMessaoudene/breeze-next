@@ -1,39 +1,43 @@
 'use client'
 
-import { useState } from 'react'
-import axios from '@/lib/axios'
-import useSWR from 'swr'
-
-const fetcher = url =>
-    axios.get(url).then(res => res.data).catch(error => {
-        if (error.response.status !== 409) throw error;
-    });
+import { useState } from 'react';
+import axios from '@/lib/axios';
 
 export const ProductsForm = () => {
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState(0);
+    const [description, setDescription] = useState('');
+    const [media, setMedia] = useState(null);
 
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState(0)
-    const [description, setDescription] = useState('')
-    const [media, setMedia] = useState('')
+    const handleMediaChange = (e) => {
+        setMedia(e.target.files[0]);
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            const newProduct = {
-                name,
-                price,
-                description,
-                media
-            }
-            await axios.post('/api/products', newProduct)
-            setName('')
-            setPrice(0)
-            setDescription('')
-            setMedia('')
-        } catch (error) {
-            console.error(error)
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('price', price);
+        formData.append('description', description);
+        if (media) {
+            formData.append('media', media);
         }
-    }
+
+        try {
+            await axios.post('/api/products', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            setName('');
+            setPrice(0);
+            setDescription('');
+            setMedia(null);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div>
@@ -67,12 +71,11 @@ export const ProductsForm = () => {
                     <label>Media</label>
                     <input
                         type="file"
-                        value={media}
-                        onChange={e => setMedia(e.target.value)}
+                        onChange={handleMediaChange}
                     />
                 </div>
                 <button type="submit">Submit</button>
             </form>
         </div>
-    )
-}
+    );
+};
