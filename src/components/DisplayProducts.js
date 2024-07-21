@@ -66,6 +66,7 @@ export const DisplayProducts = () => {
                         <th>Name</th>
                         <th>Price</th>
                         <th>Media</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -81,6 +82,7 @@ export const DisplayProducts = () => {
                                     </button>
                                 ))}
                             </td>
+                            <td>{product.status ? 'Active' : 'Inactive'}</td>
                             <td>
                                 <button onClick={() => handleDelete(product.id)} disabled={loading[product.id]}>
                                     {loading[product.id] ? 'Deleting...' : 'Delete'}
