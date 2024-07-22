@@ -14,6 +14,7 @@ import { DisplayContactsForm } from '@/components/DisplayContactsForm'
 import { ProductsForm } from '@/components/ProductsForm'
 import { PackagesForm } from '@/components/PackagesForm'
 import { DisplayPackages } from '@/components/DisplayPackages'
+import { MeasuresForm } from '@/components/MeasuresForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -43,6 +44,7 @@ const Dashboard = () => {
                             <ProductsForm/>
                             <PackagesForm/>
                             <DisplayPackages/>
+                            <MeasuresForm/>
                         </div>
                     </div>
                 </div>
