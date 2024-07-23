@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import axios from '@/lib/axios';
+import {axios} from '@/lib/axios'
 import useSWR from 'swr';
 import Link from 'next/link';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import axios from '@/lib/axios';
+import {axios} from '@/lib/axios'
 import useSWR from 'swr';
 import { useState } from 'react';
 import Modal from './Modal'; // Import the Modal component

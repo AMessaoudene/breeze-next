@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import axios from '@/lib/axios';
+import {axios} from '@/lib/axios'
 import useSWR from 'swr';
 
 const fetcher = url => axios.get(url).then(res => res.data).catch(error => {

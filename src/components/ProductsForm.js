@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import axios from '@/lib/axios';
+import {axios} from '@/lib/axios'
 
 export const ProductsForm = () => {
     const [name, setName] = useState('');
