@@ -34,6 +34,7 @@ module.exports = {
         'no-nested-ternary': 0,
         'no-underscore-dangle': 0,
         'no-unused-expressions': ['error', { allowTernary: true }],
+        'linebreak-style': ['error', 'unix'],
         camelcase: 0,
         'react/self-closing-comp': 1,
         'react/jsx-filename-extension': [1, { extensions: ['.js', 'jsx'] }],

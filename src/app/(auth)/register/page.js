@@ -18,7 +18,7 @@ const Page = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState({})
 
     const submitForm = event => {
         event.preventDefault()
@@ -48,7 +48,7 @@ const Page = () => {
                     autoFocus
                 />
 
-                <InputError messages={errors.name} className="mt-2" />
+                <InputError messages={errors.name || []} className="mt-2" />
             </div>
 
             {/* Email Address */}
@@ -64,7 +64,7 @@ const Page = () => {
                     required
                 />
 
-                <InputError messages={errors.email} className="mt-2" />
+                <InputError messages={errors.email || []} className="mt-2" />
             </div>
 
             {/* Password */}
@@ -81,7 +81,7 @@ const Page = () => {
                     autoComplete="new-password"
                 />
 
-                <InputError messages={errors.password} className="mt-2" />
+                <InputError messages={errors.password || []} className="mt-2" />
             </div>
 
             {/* Confirm Password */}
@@ -102,7 +102,7 @@ const Page = () => {
                 />
 
                 <InputError
-                    messages={errors.password_confirmation}
+                    messages={errors.password_confirmation || []}
                     className="mt-2"
                 />
             </div>
