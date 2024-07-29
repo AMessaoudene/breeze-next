@@ -8,48 +8,11 @@ import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
 import useEcho from '@/hooks/echo';
-import { Badge, Button, Popover, PopoverTrigger, PopoverContent, Image } from '@nextui-org/react';
 import { axios } from '@/lib/axios';
 
 const Navigation = ({ user }) => {
     const { logout } = useAuth();
     const [open, setOpen] = useState(false);
-    const [unreadMessages, setUnreadMessages] = useState(0);
-    const [messages, setMessages] = useState([]);
-    const echo = useEcho();
-
-    const handleEchoCallback = useCallback(() => {
-        setUnreadMessages(prevUnread => prevUnread + 1);
-        sound.play();
-    }, []);
-
-    useEffect(() => {
-        if (echo) {
-            const channel = echo.private(`chat.${user?.id}`);
-            channel.listen('MessageSent', event => {
-                if (event.receiver.id === user?.id) {
-                    console.log('Real-time event received: ', event);
-                    handleEchoCallback();
-                }
-            });
-            return () => {
-                channel.stopListening('MessageSent');
-            };
-        }
-    }, [user, echo, handleEchoCallback]);
-
-    useEffect(() => {
-        axios.post('/api/get-unread-messages', {
-            user_id: user?.id,
-        }).then(res => {
-            setUnreadMessages(res.data.length);
-            setMessages(res.data);
-        });
-    }, [user]);
-
-    const fetchMessages = () => {
-        // Fetch messages
-    };
 
     return (
         <nav className="bg-white border-b border-gray-100">
@@ -68,56 +31,6 @@ const Navigation = ({ user }) => {
                                 Dashboard
                             </NavLink>
                         </div>
-                    </div>
-
-                    <div className="flex items-center">
-                        <Popover placement="bottom-end" showArrow="true">
-                            <Badge
-                                content={unreadMessages}
-                                shape="circle"
-                                size="lg"
-                                color="danger"
-                                isInvisible={unreadMessages === 0}>
-                                <PopoverTrigger>
-                                    <Button
-                                        radius="full"
-                                        size="sm"
-                                        variant="solid"
-                                        color="primary"
-                                        isIconOnly
-                                        aria-label={`There are ${unreadMessages} unread messages.`}
-                                        onClick={fetchMessages}>
-                                    </Button>
-                                </PopoverTrigger>
-                            </Badge>
-
-                            <PopoverContent className="flex">
-                                <div className="flex w-full flex-col divide-y divide-gray-300 p-2">
-                                    {messages.map(msg => (
-                                        <div
-                                            key={msg.id}
-                                            className="flex max-w-96 gap-2 py-2">
-                                            <Image
-                                                alt="Profile pic"
-                                                className="w-full object-cover"
-                                                height={24}
-                                                src={`https://ui-avatars.com/api/?size=256&name=${msg.from.name}`}
-                                                width={24}
-                                                radius="full"
-                                            />
-                                            <div className="flex w-full flex-col">
-                                                <span className="text-sm">
-                                                    {msg.message}
-                                                </span>
-                                                <span className="text-right text-[10px] text-gray-400">
-                                                    {msg.from.name}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </PopoverContent>
-                        </Popover>
                     </div>
 
                     <div className="hidden sm:flex sm:items-center sm:ml-6">

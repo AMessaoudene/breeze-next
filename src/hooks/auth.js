@@ -1,9 +1,5 @@
 import useSWR from 'swr'
-<<<<<<< HEAD
-import { axios } from '@/lib/axios'
-=======
 import { axios, setBearerToken } from '@/lib/axios'
->>>>>>> 844b2b16325849ffad474b247e511ac79dec46a1
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 
