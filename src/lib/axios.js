@@ -1,3 +1,4 @@
+// lib/axios.js
 import Axios from 'axios'
 
 const axios = Axios.create({
@@ -6,7 +7,12 @@ const axios = Axios.create({
         'X-Requested-With': 'XMLHttpRequest',
     },
     withCredentials: true,
-    withXSRFToken: true
+    withXSRFToken: true,
 })
 
-export default axios
+// Set the Bearer auth token.
+const setBearerToken = token => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+}
+
+export { axios, setBearerToken }
