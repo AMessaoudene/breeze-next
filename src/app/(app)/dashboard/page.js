@@ -17,6 +17,7 @@ import { DisplayPackages } from '@/components/DisplayPackages'
 import { MeasuresForm } from '@/components/MeasuresForm'
 import { PackageRatingsForm } from '@/components/PackageRatingsForm'
 import PackageReportsForm from '@/components/PackageReportsForm'
+import { DisplayPackageReports } from '@/components/DisplayPackageReports'
 
 export const metadata = {
     title: 'Dashboard',

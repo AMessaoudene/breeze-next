@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import {axios} from '@/lib/axios'
+import { axios } from '@/lib/axios';
 import useSWR from 'swr';
 import Link from 'next/link';
 import Modal from './Modal';
+import { DisplayPackageReports } from './DisplayPackageReports'; // Import the new component
 
 const fetcher = url =>
     axios.get(url).then(res => res.data).catch(error => {
@@ -12,12 +13,11 @@ const fetcher = url =>
     });
 
 export const DisplayPackages = () => {
-
     const { data, error, mutate } = useSWR('/api/packages', fetcher);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [packageLines, setPackageLines] = useState([]);
     const [selectedPackageName, setSelectedPackageName] = useState('');
-    const [isTableView, setIsTableView] = useState(true); // State to toggle between table and card view
+    const [isTableView, setIsTableView] = useState(true);
 
     const openModal = async (packageId, packageName) => {
         try {
@@ -39,14 +39,13 @@ export const DisplayPackages = () => {
     const deletePackage = async (packageId) => {
         try {
             await axios.delete(`/api/packages/${packageId}`);
-            mutate(); // Refresh the data after deletion
+            mutate();
         } catch (error) {
             console.error('Error deleting package:', error);
         }
     };
 
     if (error) return <div>Failed to load</div>;
-
     if (!data) return <div>Loading...</div>;
 
     return (
@@ -129,6 +128,9 @@ export const DisplayPackages = () => {
                     <p>No package lines found.</p>
                 )}
             </Modal>
+
+            {/* Display package reports in a different component */}
+            <DisplayPackageReports />
         </div>
     );
-}
+};
