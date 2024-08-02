@@ -4,18 +4,13 @@ FROM node:21.4
 # Set working directory
 WORKDIR /usr/src/app
 
-<<<<<<< HEAD
 # Install dos2unix and iputils-ping
 RUN apt-get update && apt-get install -y dos2unix iputils-ping
-=======
-# Install dos2unix
-RUN apt-get update && apt-get install -y dos2unix
->>>>>>> 844b2b16325849ffad474b247e511ac79dec46a1
+
 
 # Use npm registry mirror
 RUN npm config set registry https://registry.npmjs.org/
 
-<<<<<<< HEAD
 # Set npm configurations for better network handling
 RUN npm config set fetch-retry-mintimeout 20000 \
     && npm config set fetch-retry-maxtimeout 120000
@@ -28,13 +23,6 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-=======
-# Install app dependencies
-COPY package*.json ./
-
-# Retry npm install up to 5 times
-RUN npm install || npm install || npm install || npm install || npm install
->>>>>>> 844b2b16325849ffad474b247e511ac79dec46a1
 
 # Copy app source code
 COPY . .

@@ -6,9 +6,7 @@ import ResponsiveNavLink, { ResponsiveNavButton } from '@/components/ResponsiveN
 import { DropdownButton } from '@/components/DropdownLink';
 import { useAuth } from '@/hooks/auth';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect, useCallback } from 'react';
-import useEcho from '@/hooks/echo';
-import { axios } from '@/lib/axios';
+import { useState } from 'react';
 
 const Navigation = ({ user }) => {
     const { logout } = useAuth();

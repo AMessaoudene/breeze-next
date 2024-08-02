@@ -11,7 +11,6 @@ const fetcher = url =>
 
 export const OfferLinesForm = () => {
     const { data: offerlines, error, mutate } = useSWR('/api/offers', fetcher);
-    const [editOfferline, setEditOfferline] = useState(null);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
