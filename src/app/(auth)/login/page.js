@@ -15,7 +15,7 @@ const Login = () => {
 
     const { login } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/', // Default redirect if already authenticated
     })
 
     const [email, setEmail] = useState('')
@@ -30,7 +30,7 @@ const Login = () => {
         } else {
             setStatus(null)
         }
-    })
+    }, [router.reset, errors.length])
 
     const submitForm = async event => {
         event.preventDefault()
@@ -79,10 +79,7 @@ const Login = () => {
                         autoComplete="current-password"
                     />
 
-                    <InputError
-                        messages={errors.password}
-                        className="mt-2"
-                    />
+                    <InputError messages={errors.password} className="mt-2" />
                 </div>
 
                 {/* Remember Me */}

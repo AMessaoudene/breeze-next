@@ -1,11 +1,10 @@
 import useSWR from 'swr'
 import { axios, setBearerToken } from '@/lib/axios'
 import { useEffect } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
-    const params = useParams()
 
     const { data: user, error, mutate } = useSWR('/api/user', () =>
         axios
@@ -43,9 +42,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         axios
             .post('/login', props)
-            .then(() => {mutate()
-            setBearerToken(res.data.token)
-            console.log(res)})
+            .then(response => {
+                mutate() // Update the SWR state with the user data
+                setBearerToken(response.data.token) // Ensure the token is set
+                router.push(response.data.redirectTo) // Redirect to the role-specific dashboard
+            })
             .catch(error => {
                 if (error.response.status !== 422) throw error
 
@@ -102,13 +103,15 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user)
+        if (middleware === 'guest' && redirectIfAuthenticated && user) {
             router.push(redirectIfAuthenticated)
+        }
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at
-        )
+        ) {
             router.push(redirectIfAuthenticated)
+        }
         if (middleware === 'auth' && error) logout()
     }, [user, error])
 
