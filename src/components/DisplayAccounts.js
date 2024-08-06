@@ -32,7 +32,7 @@ const Modal = ({ isOpen, onClose, account }) => {
 };
 
 export const DisplayAccounts = () => {
-    const { data, error, mutate } = useSWR('/api/accounts', fetcher);
+    const { data, error, mutate } = useSWR('/api/admin/accounts', fetcher);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentAccount, setCurrentAccount] = useState(null);
 
@@ -41,7 +41,7 @@ export const DisplayAccounts = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/accounts/${id}`);
+            await axios.delete(`/api/admin/accounts/${id}`);
             mutate(); // Refresh the data after deletion
         } catch (error) {
             console.error('Failed to delete account:', error);

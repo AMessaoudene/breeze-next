@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import {axios} from '@/lib/axios'
+import { axios } from '@/lib/axios';
 import useSWR from 'swr';
 
 const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
@@ -20,19 +20,30 @@ export const PackagesForm = () => {
     const [measureId, setMeasureId] = useState('');
     const [unit, setUnit] = useState('');
     const [packageLines, setPackageLines] = useState([{ product_id: '', quantity: 1 }]);
+    const [media, setMedia] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('description', description);
+        formData.append('price', price);
+        formData.append('unit', unit);
+        formData.append('measure_id', measureId);
+        packageLines.forEach((line, index) => {
+            formData.append(`package_lines[${index}][product_id]`, line.product_id);
+            formData.append(`package_lines[${index}][quantity]`, line.quantity);
+        });
+        if (media) {
+            formData.append('media', media);
+        }
+
         try {
-            const newPackage = {
-                name,
-                description,
-                price,
-                unit,
-                measure_id: measureId,
-                package_lines: packageLines
-            };
-            await axios.post('/api/packages', newPackage);
+            await axios.post('/api/packages', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             mutate();
             setName('');
             setDescription('');
@@ -40,6 +51,7 @@ export const PackagesForm = () => {
             setMeasureId('');
             setUnit('');
             setPackageLines([{ product_id: '', quantity: 1 }]);
+            setMedia(null);
         } catch (error) {
             console.error('Error submitting form:', error);
         }
@@ -58,6 +70,10 @@ export const PackagesForm = () => {
     const handleRemovePackageLine = (index) => {
         const newPackageLines = packageLines.filter((_, i) => i !== index);
         setPackageLines(newPackageLines);
+    };
+
+    const handleMediaChange = (e) => {
+        setMedia(e.target.files[0]);
     };
 
     useEffect(() => {
@@ -128,6 +144,13 @@ export const PackagesForm = () => {
                             <option key={measure.id} value={measure.id}>{measure.name}</option>
                         ))}
                     </select>
+                </div>
+                <div>
+                    <label>Media</label>
+                    <input
+                        type="file"
+                        onChange={handleMediaChange}
+                    />
                 </div>
                 <div>
                     <h2>Package Lines</h2>

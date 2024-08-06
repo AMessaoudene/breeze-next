@@ -18,10 +18,14 @@ import { MeasuresForm } from '@/components/MeasuresForm'
 import { PackageRatingsForm } from '@/components/PackageRatingsForm'
 import PackageReportsForm from '@/components/PackageReportsForm'
 import { DisplayPackageReports } from '@/components/DisplayPackageReports'
+import SocialMediasForm from '@/components/SocialMediasForm'
+import { DisplayStores } from '@/components/DisplayStores'
+import { DisplayRoles } from '@/components/DisplayRoles'
 
 export const metadata = {
     title: 'Dashboard',
     description: 'Dashboard',
+    keywords: 'Dashboard',
 }
 
 const Dashboard = () => {
@@ -50,6 +54,9 @@ const Dashboard = () => {
                             <MeasuresForm/>
                             <PackageRatingsForm/>
                             <PackageReportsForm/>
+                            <SocialMediasForm/>
+                            <DisplayStores/>
+                            <DisplayRoles/>
                         </div>
                     </div>
                 </div>

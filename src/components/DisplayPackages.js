@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import Modal from './Modal';
 import { DisplayPackageReports } from './DisplayPackageReports'; // Import the new component
+import { DisplayPackageMedia } from './DisplayPackageMedia'; // Import the DisplayPackageMedia component
 
 const fetcher = url =>
     axios.get(url).then(res => res.data).catch(error => {
@@ -64,6 +65,7 @@ export const DisplayPackages = () => {
                             <th className="py-2">Status</th>
                             <th className="py-2">Actions</th>
                             <th className="py-2">Package Lines</th>
+                            <th className="py-2">Media</th> {/* Add Media column */}
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +83,9 @@ export const DisplayPackages = () => {
                                     <button onClick={() => openModal(item.id, item.name)} className="text-blue-500 hover:text-blue-700">
                                         View Lines
                                     </button>
+                                </td>
+                                <td className="py-2"> {/* Render DisplayPackageMedia component */}
+                                    <DisplayPackageMedia packageId={item.id} />
                                 </td>
                             </tr>
                         ))}
@@ -101,6 +106,8 @@ export const DisplayPackages = () => {
                             <button onClick={() => openModal(item.id, item.name)} className="text-blue-500 hover:text-blue-700 mt-2">
                                 View Lines
                             </button>
+                            {/* Render DisplayPackageMedia component */}
+                            <DisplayPackageMedia packageId={item.id} />
                         </div>
                     ))}
                 </div>
