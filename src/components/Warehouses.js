@@ -13,7 +13,8 @@ const Warehouses = () => {
         name: '',
         surface: '',
         capacity: '',
-        address: ''
+        address: '',
+        store_id: '',
     });
 
     useEffect(() => {
@@ -40,7 +41,8 @@ const Warehouses = () => {
             name: warehouse.name || '',
             surface: warehouse.surface || '',
             capacity: warehouse.capacity || '',
-            address: warehouse.address || ''
+            address: warehouse.address || '',
+            store_id :warehouse.store_id || '',
         });
         setIsModalOpen(true);
     };
@@ -99,6 +101,7 @@ const Warehouses = () => {
                         <p>Surface: {warehouse.surface}</p>
                         <p>Capacity: {warehouse.capacity}</p>
                         <p>Address: {warehouse.address}</p>
+                        <p>Store ID: {warehouse.store_id}</p>
                         <button onClick={() => handleOpenModal('edit', warehouse)}>Edit</button>
                         <button onClick={() => handleDelete(warehouse.id)}>Delete</button>
                     </li>
@@ -149,6 +152,17 @@ const Warehouses = () => {
                             value={currentWarehouse.address}
                             onChange={handleChange}
                             required
+                        />
+                    </label>
+
+                    <label>
+                        Store ID:
+                        <input
+                            type="text"
+                            name="store_id"
+                            value={currentWarehouse.store_id}
+                            onChange={handleChange}
+                            required                        
                         />
                     </label>
                     <button type="submit">Submit</button>
