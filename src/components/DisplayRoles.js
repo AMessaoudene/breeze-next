@@ -13,7 +13,7 @@ const fetcher = url =>
         });
 
 export const DisplayRoles = () => {
-    const { data: roles, error, mutate } = useSWR('/api/admin/roles', fetcher);
+    const { data: roles, error, mutate } = useSWR('/api/roles', fetcher);
     const [loading, setLoading] = useState({});
     const [editingRoleId, setEditingRoleId] = useState(null);
     const [editName, setEditName] = useState('');
@@ -22,7 +22,7 @@ export const DisplayRoles = () => {
     const handleDelete = async (roleId) => {
         setLoading(prev => ({ ...prev, [roleId]: true }));
         try {
-            await axios.delete(`/api/admin/roles/${roleId}`);
+            await axios.delete(`/api/roles/${roleId}`);
             mutate(); // Re-fetch the roles list after deletion
         } catch (error) {
             console.error(error);
@@ -39,7 +39,7 @@ export const DisplayRoles = () => {
     const handleSave = async (roleId) => {
         setLoading(prev => ({ ...prev, [roleId]: true }));
         try {
-            await axios.put(`/api/admin/roles/${roleId}`, {
+            await axios.put(`/api/roles/${roleId}`, {
                 name: editName,
                 description: editDescription,
             });

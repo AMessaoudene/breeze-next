@@ -1,12 +1,12 @@
 import Header from '@/app/(app)/Header'
 import UserComponent from '@/components/UserComponent'
 import { DisplayProducts } from '@/components/DisplayProducts'
-import { DisplayOffers } from '@/components/offers/DisplayOffers'
+import { DisplayOffers } from '@/components/DisplayOffers'
 import { OffersForm } from '@/components/OffersForm'
 import { OfferLinesForm } from '@/components/OfferLinesForm'
-import { DisplayOfferLines } from '@/components/offers/DisplayOfferLines'
+import { DisplayOfferLines } from '@/components/DisplayOfferLines'
 import { OfferLinesStatusesForm } from '@/components/OfferLinesStatusesForm'
-import { DisplayOfferLinesStatuses } from '@/components/offers/DisplayOfferLinesStatuses'
+import { DisplayOfferLinesStatuses } from '@/components/DisplayOfferLinesStatuses'
 import { StoreCategoriesForm } from '@/components/StoreCategoriesForm'
 import { DisplayAccounts } from '@/components/DisplayAccounts'
 import { ContactsForm } from '@/components/ContactsForm'
@@ -21,6 +21,8 @@ import { DisplayPackageReports } from '@/components/DisplayPackageReports'
 import SocialMediasForm from '@/components/SocialMediasForm'
 import { DisplayStores } from '@/components/DisplayStores'
 import { DisplayRoles } from '@/components/DisplayRoles'
+import PaymentMethodsForm from '@/components/PaymentMethodsForm'
+import RolesForm from '@/components/RolesForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -36,7 +38,6 @@ const Dashboard = () => {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
-                            <DisplayProducts/>
                             <UserComponent/>
                             <DisplayOffers/>
                             <OffersForm/>
@@ -56,7 +57,9 @@ const Dashboard = () => {
                             <PackageReportsForm/>
                             <SocialMediasForm/>
                             <DisplayStores/>
+                            <RolesForm/>
                             <DisplayRoles/>
+                            <PaymentMethodsForm/>
                         </div>
                     </div>
                 </div>
