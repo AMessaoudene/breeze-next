@@ -13,49 +13,7 @@ export const RolesForm = () => {
     const { data: roles, error: rolesError, mutate } = useSWR('/api/roles', fetcher);
 
     const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-
-    const [editData, setEditData] = useState({});
-
-    const handleInputChange = (id, field, value) => {
-        setEditData(prev => ({
-            ...prev,
-            [id]: {
-                ...prev[id],
-                [field]: value,
-            },
-        }));
-    };
-
-    const handleEdit = (role) => {
-        setEditData(prev => ({
-            ...prev,
-            [role.id]: role,
-        }));
-    };
-
-    const handleSave = async (id) => {
-        try {
-            await axios.put(`/api/roles/${id}`, editData[id]);
-            mutate();
-            setEditData(prev => {
-                const newData = { ...prev };
-                delete newData[id];
-                return newData;
-            });
-        } catch (error) {
-            console.error('Error updating role:', error);
-        }
-    };
-
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`/api/roles/${id}`);
-            mutate();
-        } catch (error) {
-            console.error('Error deleting role:', error);
-        }
-    };
+    const [description, setDescription] = useState('');    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
