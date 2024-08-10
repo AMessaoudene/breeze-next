@@ -13,13 +13,13 @@ const fetcher = url =>
         });
 
 export const DisplayStores = () => {
-    const { data: stores, error, mutate } = useSWR('/api/admin/stores', fetcher);
+    const { data: stores, error, mutate } = useSWR('/api/stores', fetcher);
     const [loading, setLoading] = useState({});
 
     const handleDelete = async (storeId) => {
         setLoading(prev => ({ ...prev, [storeId]: true }));
         try {
-            await axios.delete(`/api/admin/stores/${storeId}`);
+            await axios.delete(`/api/stores/${storeId}`);
             mutate(); // Re-fetch the stores list after deletion
         } catch (error) {
             console.error(error);

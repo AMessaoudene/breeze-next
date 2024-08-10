@@ -25,6 +25,7 @@ import PaymentMethodsForm from '@/components/PaymentMethodsForm'
 import RolesForm from '@/components/RolesForm'
 import { Notifications } from '@/components/Notifications'
 import Profile from '@/components/Profile'
+import Home from '@/components/Home'
 
 export const metadata = {
     title: 'Dashboard',
@@ -64,6 +65,7 @@ const Dashboard = () => {
                             <DisplayRoles/>
                             <PaymentMethodsForm/>
                             <Profile/>
+                            <Home/>
                         </div>
                     </div>
                 </div>
