@@ -52,7 +52,7 @@ const Page = () => {
         <form onSubmit={submitForm}>
             {/* Name */}
             <div>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Name*</Label>
                 <Input
                     id="name"
                     type="text"
@@ -63,6 +63,120 @@ const Page = () => {
                     autoFocus
                 />
                 <InputError messages={errors.name || []} className="mt-2" />
+            </div>
+
+            {/* Middlename */}
+            <div className="mt-4">
+                <Label htmlFor="middlename">Middlename</Label>
+                <Input
+                    id="middlename"
+                    type="text"
+                    value={middlename}
+                    className="block mt-1 w-full"
+                    onChange={event => setMiddlename(event.target.value)}
+                />
+                <InputError
+                    messages={errors.middlename || []}
+                    className="mt-2"
+                />
+            </div>
+
+            {/* Surname */}
+            <div className="mt-4">
+                <Label htmlFor="surname">Surname*</Label>
+                <Input
+                    id="surname"
+                    type="text"
+                    value={surname}
+                    className="block mt-1 w-full"
+                    onChange={event => setSurname(event.target.value)}
+                    required
+                />
+                <InputError messages={errors.surname || []} className="mt-2" />
+            </div>
+
+            {/* Phone */}
+            <div className="mt-4">
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                    id="phone"
+                    type="text"
+                    value={phone}
+                    className="block mt-1 w-full"
+                    onChange={event => setPhone(event.target.value)}
+                />
+                <InputError messages={errors.phone || []} className="mt-2" />
+            </div>
+
+            {/* Address */}
+            <div className="mt-4">
+                <Label htmlFor="address">Address</Label>
+                <Input
+                    id="address"
+                    type="text"
+                    value={address}
+                    className="block mt-1 w-full"
+                    onChange={event => setAddress(event.target.value)}
+                />
+                <InputError messages={errors.address || []} className="mt-2" />
+            </div>
+
+            {/* Country */}
+            <div className="mt-4">
+                <Label htmlFor="country">Country*</Label>
+                <Input
+                    id="country"
+                    type="text"
+                    value={country}
+                    className="block mt-1 w-full"
+                    onChange={event => setCountry(event.target.value)}
+                    required
+                />
+                <InputError messages={errors.country || []} className="mt-2" />
+            </div>
+
+            {/* State */}
+            <div className="mt-4">
+                <Label htmlFor="state">State*</Label>
+                <Input
+                    id="state"
+                    type="text"
+                    value={state}
+                    className="block mt-1 w-full"
+                    onChange={event => setState(event.target.value)}
+                    required
+                />
+                <InputError messages={errors.state || []} className="mt-2" />
+            </div>
+
+            {/* City */}
+            <div className="mt-4">
+                <Label htmlFor="city">City*</Label>
+                <Input
+                    id="city"
+                    type="text"
+                    value={city}
+                    className="block mt-1 w-full"
+                    onChange={event => setCity(event.target.value)}
+                    required
+                />
+                <InputError messages={errors.city || []} className="mt-2" />
+            </div>
+
+            {/* Postal Code */}
+            <div className="mt-4">
+                <Label htmlFor="postalCode">Postal Code</Label>
+                <Input
+                    id="postalCode"
+                    type="text"
+                    value={postalCode}
+                    className="block mt-1 w-full"
+                    onChange={event => setPostalCode(event.target.value)}
+                />
+                <InputError
+                    messages={errors.postal_code || []}
+                    className="mt-2"
+                />
             </div>
 
             {/* Email */}
@@ -109,116 +223,6 @@ const Page = () => {
                 />
                 <InputError
                     messages={errors.password_confirmation || []}
-                    className="mt-2"
-                />
-            </div>
-
-            {/* Middlename */}
-            <div className="mt-4">
-                <Label htmlFor="middlename">Middlename</Label>
-                <Input
-                    id="middlename"
-                    type="text"
-                    value={middlename}
-                    className="block mt-1 w-full"
-                    onChange={event => setMiddlename(event.target.value)}
-                />
-                <InputError
-                    messages={errors.middlename || []}
-                    className="mt-2"
-                />
-            </div>
-
-            {/* Surname */}
-            <div className="mt-4">
-                <Label htmlFor="surname">Surname</Label>
-                <Input
-                    id="surname"
-                    type="text"
-                    value={surname}
-                    className="block mt-1 w-full"
-                    onChange={event => setSurname(event.target.value)}
-                />
-                <InputError messages={errors.surname || []} className="mt-2" />
-            </div>
-
-            {/* Phone */}
-            <div className="mt-4">
-                <Label htmlFor="phone">Phone</Label>
-                <Input
-                    id="phone"
-                    type="text"
-                    value={phone}
-                    className="block mt-1 w-full"
-                    onChange={event => setPhone(event.target.value)}
-                />
-                <InputError messages={errors.phone || []} className="mt-2" />
-            </div>
-
-            {/* Address */}
-            <div className="mt-4">
-                <Label htmlFor="address">Address</Label>
-                <Input
-                    id="address"
-                    type="text"
-                    value={address}
-                    className="block mt-1 w-full"
-                    onChange={event => setAddress(event.target.value)}
-                />
-                <InputError messages={errors.address || []} className="mt-2" />
-            </div>
-
-            {/* City */}
-            <div className="mt-4">
-                <Label htmlFor="city">City</Label>
-                <Input
-                    id="city"
-                    type="text"
-                    value={city}
-                    className="block mt-1 w-full"
-                    onChange={event => setCity(event.target.value)}
-                />
-                <InputError messages={errors.city || []} className="mt-2" />
-            </div>
-
-            {/* State */}
-            <div className="mt-4">
-                <Label htmlFor="state">State</Label>
-                <Input
-                    id="state"
-                    type="text"
-                    value={state}
-                    className="block mt-1 w-full"
-                    onChange={event => setState(event.target.value)}
-                />
-                <InputError messages={errors.state || []} className="mt-2" />
-            </div>
-
-            {/* Country */}
-            <div className="mt-4">
-                <Label htmlFor="country">Country</Label>
-                <Input
-                    id="country"
-                    type="text"
-                    value={country}
-                    className="block mt-1 w-full"
-                    onChange={event => setCountry(event.target.value)}
-                />
-                <InputError messages={errors.country || []} className="mt-2" />
-            </div>
-
-            {/* Postal Code */}
-            <div className="mt-4">
-                <Label htmlFor="postalCode">Postal Code</Label>
-                <Input
-                    id="postalCode"
-                    type="text"
-                    value={postalCode}
-                    className="block mt-1 w-full"
-                    onChange={event => setPostalCode(event.target.value)}
-                />
-                <InputError
-                    messages={errors.postal_code || []}
                     className="mt-2"
                 />
             </div>
