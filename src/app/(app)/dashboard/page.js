@@ -26,6 +26,7 @@ import RolesForm from '@/components/RolesForm'
 import { Notifications } from '@/components/Notifications'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
+import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
 
 export const metadata = {
     title: 'Dashboard',
@@ -66,6 +67,7 @@ const Dashboard = () => {
                             <PaymentMethodsForm/>
                             <Profile/>
                             <Home/>
+                            <ManageAccounts/>
                         </div>
                     </div>
                 </div>
