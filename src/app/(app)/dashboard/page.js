@@ -27,6 +27,7 @@ import { Notifications } from '@/components/Notifications'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
+import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
 
 export const metadata = {
     title: 'Dashboard',
@@ -68,6 +69,7 @@ const Dashboard = () => {
                             <Profile/>
                             <Home/>
                             <ManageAccounts/>
+                            <MembershipInvitations/>
                         </div>
                     </div>
                 </div>

@@ -12,11 +12,9 @@ const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
 export const ManageAccounts = () => {
     const { data: userRoles, error: userRolesError, mutate } = useSWR('/api/userroles', fetcher);
     const { data: roles, error: rolesError } = useSWR('/api/roles', fetcher);
-    const { data: stores, error: storesError } = useSWR('/api/stores', fetcher);  // Fetching stores
 
     const [formData, setFormData] = useState({
         email: '',
-        store_id: '',
         role_id: '',
     });
     const [editingId, setEditingId] = useState(null);
@@ -49,7 +47,6 @@ export const ManageAccounts = () => {
     const handleEdit = (userRole) => {
         setFormData({
             email: userRole.users.email,
-            store_id: userRole.store_id,
             role_id: userRole.role_id,
         });
         setEditingId(userRole.id);
@@ -75,8 +72,7 @@ export const ManageAccounts = () => {
 
     if (userRolesError) return <div>Failed to load user roles: {userRolesError.message}</div>;
     if (rolesError) return <div>Failed to load roles: {rolesError.message}</div>;
-    if (storesError) return <div>Failed to load stores: {storesError.message}</div>;
-    if (!userRoles || !roles || !stores) return <div>Loading...</div>;
+    if (!userRoles || !roles) return <div>Loading...</div>;
 
     return (
         <div>
@@ -85,7 +81,6 @@ export const ManageAccounts = () => {
             {userRoles?.map((userRole) => (
                 <div key={userRole.id}>
                     <p>Email: {userRole.users?.email || 'No user assigned'}</p>
-                    <p>Store: {userRole.stores?.name || 'No store assigned'}</p>
                     <p>Role: {userRole.roles?.name || 'No role assigned'}</p>
                     <button onClick={() => handleEdit(userRole)}>Edit</button>
                     <button onClick={() => handleDelete(userRole.id)}>Delete</button>
@@ -102,19 +97,6 @@ export const ManageAccounts = () => {
                     onChange={handleInputChange}
                     required
                 />
-                <select
-                    name="store_id"
-                    value={formData.store_id}
-                    onChange={handleInputChange}
-                    required
-                >
-                    <option value="">Select Store</option>
-                    {stores?.map((store) => (   // Loop through stores, not userRoles
-                        <option key={store.id} value={store.id}>
-                            {store.name}
-                        </option>
-                    ))}
-                </select>
                 <select
                     name="role_id"
                     value={formData.role_id}

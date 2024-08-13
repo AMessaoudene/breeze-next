@@ -9,10 +9,10 @@ const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
     throw error;
 });
 
-export const ManageAccounts = () => {
-    const { data: userRoles, error: userRolesError, mutate } = useSWR('/api/userroles', fetcher);
+const MembershipInvitations = () => {
+    const { data: invitations, error: invitationsError, mutate } = useSWR('/api/invitations', fetcher);
+    const { data: stores, error: storesError } = useSWR('/api/stores', fetcher);
     const { data: roles, error: rolesError } = useSWR('/api/roles', fetcher);
-    const { data: stores, error: storesError } = useSWR('/api/stores', fetcher);  // Fetching stores
 
     const [formData, setFormData] = useState({
         email: '',
@@ -33,11 +33,9 @@ export const ManageAccounts = () => {
 
         try {
             if (editingId) {
-                // Update existing user role
-                await axios.put(`/api/userroles/${editingId}`, formData);
+                await axios.put(`/api/invitations/${editingId}`, formData);
             } else {
-                // Create a new user role
-                await axios.post('/api/userroles', formData);
+                await axios.post('/api/invitations', formData);
             }
             mutate(); // Re-fetch the data
             resetForm();
@@ -46,21 +44,21 @@ export const ManageAccounts = () => {
         }
     };
 
-    const handleEdit = (userRole) => {
+    const handleEdit = (invitation) => {
         setFormData({
-            email: userRole.users.email,
-            store_id: userRole.store_id,
-            role_id: userRole.role_id,
+            email: invitation.email,
+            store_id: invitation.store_id,
+            role_id: invitation.role_id,
         });
-        setEditingId(userRole.id);
+        setEditingId(invitation.id);
     };
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/userroles/${id}`);
+            await axios.delete(`/api/invitations/${id}`);
             mutate(); // Re-fetch the data
         } catch (error) {
-            console.error('Error deleting user role:', error);
+            console.error('Error deleting invitation:', error);
         }
     };
 
@@ -70,29 +68,30 @@ export const ManageAccounts = () => {
     };
 
     useEffect(() => {
-        console.log('User Roles:', userRoles);
-    }, [userRoles]);
+        console.log('Invitations:', invitations);
+    }, [invitations]);
 
-    if (userRolesError) return <div>Failed to load user roles: {userRolesError.message}</div>;
-    if (rolesError) return <div>Failed to load roles: {rolesError.message}</div>;
+    if (invitationsError) return <div>Failed to load invitations: {invitationsError.message}</div>;
     if (storesError) return <div>Failed to load stores: {storesError.message}</div>;
-    if (!userRoles || !roles || !stores) return <div>Loading...</div>;
+    if (rolesError) return <div>Failed to load roles: {rolesError.message}</div>;
+    if (!invitations || !stores || !roles) return <div>Loading...</div>;
 
     return (
         <div>
-            <h1>Manage Accounts</h1>
-            <h2>User Roles</h2>
-            {userRoles?.map((userRole) => (
-                <div key={userRole.id}>
-                    <p>Email: {userRole.users?.email || 'No user assigned'}</p>
-                    <p>Store: {userRole.stores?.name || 'No store assigned'}</p>
-                    <p>Role: {userRole.roles?.name || 'No role assigned'}</p>
-                    <button onClick={() => handleEdit(userRole)}>Edit</button>
-                    <button onClick={() => handleDelete(userRole.id)}>Delete</button>
+            <h1>Manage Membership Invitations</h1>
+            <h2>Invitations</h2>
+            {invitations?.map((invitation) => (
+                <div key={invitation.id}>
+                    <p>Email: {invitation.email}</p>
+                    <p>Store: {stores.find(store => store.id === invitation.store_id)?.name || 'No store assigned'}</p>
+                    <p>Role: {roles.find(role => role.id === invitation.role_id)?.name || 'No role assigned'}</p>
+                    <p>Status: {invitation.status ? 'Accepted' : 'Pending'}</p>
+                    <button onClick={() => handleEdit(invitation)}>Edit</button>
+                    <button onClick={() => handleDelete(invitation.id)}>Delete</button>
                 </div>
             ))}
 
-            <h2>{editingId ? 'Edit' : 'Add'} User Role</h2>
+            <h2>{editingId ? 'Edit' : 'Add'} Invitation</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
@@ -109,7 +108,7 @@ export const ManageAccounts = () => {
                     required
                 >
                     <option value="">Select Store</option>
-                    {stores?.map((store) => (   // Loop through stores, not userRoles
+                    {stores?.map((store) => (
                         <option key={store.id} value={store.id}>
                             {store.name}
                         </option>
@@ -135,4 +134,4 @@ export const ManageAccounts = () => {
     );
 };
 
-export default ManageAccounts;
+export default MembershipInvitations;
