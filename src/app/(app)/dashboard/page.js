@@ -28,6 +28,9 @@ import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
 import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
+import ArticlesForm from '@/components/Seller/ArticlesForm'
+import ArticleCategoriesForm from '@/components/Admin/ArticleCategoriesForm'
+import UnitsForm from '@/components/Admin/UnitsForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -70,6 +73,9 @@ const Dashboard = () => {
                             <Home/>
                             <ManageAccounts/>
                             <MembershipInvitations/>
+                            <ArticlesForm/>
+                            <ArticleCategoriesForm/>
+                            <UnitsForm/>
                         </div>
                     </div>
                 </div>
