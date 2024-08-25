@@ -18,6 +18,7 @@ export const OffertimeTypeForm = () => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [days, setDays] = useState('')
 
     if (error) return <div>Failed to load</div>
     if (!offertimeTypes) return <div>Loading...</div>
@@ -28,10 +29,12 @@ export const OffertimeTypeForm = () => {
             const newOffertimeType = {
                 name,
                 description,
+                days,
             }
             await axios.post('/api/offertimetypes', newOffertimeType)
             setName('')
             setDescription('')
+            setDays('')
             mutate()
         } catch (error) {
             console.error(error)
@@ -64,6 +67,20 @@ export const OffertimeTypeForm = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className="form-textarea"
+                />
+            </div>
+
+            <div className="flex flex-col gap-1">
+                <Label
+                    htmlFor="days"
+                    value="Days"
+                />
+                <Input
+                    id="days"
+                    type="text"
+                    value={days}
+                    onChange={(e) => setDays(e.target.value)}
+                    required
                 />
             </div>
 

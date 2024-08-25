@@ -1,23 +1,14 @@
 import Header from '@/app/(app)/Header'
 import UserComponent from '@/components/UserComponent'
-import { DisplayProducts } from '@/components/DisplayProducts'
 import { DisplayOffers } from '@/components/DisplayOffers'
 import { OffersForm } from '@/components/OffersForm'
 import { OfferLinesForm } from '@/components/OfferLinesForm'
 import { DisplayOfferLines } from '@/components/DisplayOfferLines'
 import { OfferLinesStatusesForm } from '@/components/OfferLinesStatusesForm'
 import { DisplayOfferLinesStatuses } from '@/components/DisplayOfferLinesStatuses'
-import { StoreCategoriesForm } from '@/components/StoreCategoriesForm'
 import { DisplayAccounts } from '@/components/DisplayAccounts'
 import { ContactsForm } from '@/components/ContactsForm'
 import { DisplayContactsForm } from '@/components/DisplayContactsForm'
-import { ProductsForm } from '@/components/ProductsForm'
-import { PackagesForm } from '@/components/PackagesForm'
-import { DisplayPackages } from '@/components/DisplayPackages'
-import { MeasuresForm } from '@/components/MeasuresForm'
-import { PackageRatingsForm } from '@/components/PackageRatingsForm'
-import PackageReportsForm from '@/components/PackageReportsForm'
-import { DisplayPackageReports } from '@/components/DisplayPackageReports'
 import SocialMediasForm from '@/components/SocialMediasForm'
 import { DisplayStores } from '@/components/DisplayStores'
 import { DisplayRoles } from '@/components/DisplayRoles'
@@ -30,7 +21,6 @@ import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
 import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
 import ArticlesForm from '@/components/Seller/ArticlesForm'
 import ArticleCategoriesForm from '@/components/Admin/ArticleCategoriesForm'
-import UnitsForm from '@/components/Admin/UnitsForm'
 
 export const metadata = {
     title: 'Dashboard',
@@ -54,16 +44,9 @@ const Dashboard = () => {
                             <OfferLinesForm/>
                             <OfferLinesStatusesForm/>
                             <DisplayOfferLinesStatuses/>
-                            <StoreCategoriesForm/>
                             <DisplayAccounts/>
                             <ContactsForm/>
                             <DisplayContactsForm/>
-                            <ProductsForm/>
-                            <PackagesForm/>
-                            <DisplayPackages/>
-                            <MeasuresForm/>
-                            <PackageRatingsForm/>
-                            <PackageReportsForm/>
                             <SocialMediasForm/>
                             <DisplayStores/>
                             <RolesForm/>
@@ -75,7 +58,6 @@ const Dashboard = () => {
                             <MembershipInvitations/>
                             <ArticlesForm/>
                             <ArticleCategoriesForm/>
-                            <UnitsForm/>
                         </div>
                     </div>
                 </div>

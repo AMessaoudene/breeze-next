@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import {axios} from '@/lib/axios'
+import { axios } from '@/lib/axios';
 import useSWR from 'swr';
 import Link from 'next/link';
 
@@ -13,16 +13,30 @@ const fetcher = url =>
 export const DisplayOffers = () => {
     const { data: offers, error, mutate } = useSWR('/api/offers', fetcher);
     const [editOffer, setEditOffer] = useState(null);
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        offer_lines: {},
+        offer_pricings: [],
+    });
 
     if (error) return <div>Failed to load</div>;
     if (!offers) return <div>Loading...</div>;
 
     const handleEdit = (offer) => {
         setEditOffer(offer);
-        setName(offer.name);
-        setDescription(offer.description);
+        setFormData({
+            name: offer.name,
+            description: offer.description,
+            offer_lines: offer.offer_lines.reduce((acc, line) => {
+                acc[line.id] = line.status;
+                return acc;
+            }, {}),
+            offer_pricings: offer.offer_pricings.map(pricing => ({
+                offer_time_type_id: pricing.offer_time_type_id,
+                price: pricing.price,
+            })),
+        });
     };
 
     const handleDelete = async (id) => {
@@ -37,14 +51,39 @@ export const DisplayOffers = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`/api/offers/${editOffer.id}`, { name, description });
+            await axios.put(`/api/offers/${editOffer.id}`, formData);
             mutate();
             setEditOffer(null);
-            setName('');
-            setDescription('');
+            setFormData({
+                name: '',
+                description: '',
+                offer_lines: {},
+                offer_pricings: [],
+            });
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleLineChange = (lineId) => {
+        setFormData({
+            ...formData,
+            offer_lines: {
+                ...formData.offer_lines,
+                [lineId]: !formData.offer_lines[lineId],
+            },
+        });
+    };
+
+    const handlePricingChange = (index, field, value) => {
+        const newPricings = [...formData.offer_pricings];
+        newPricings[index][field] = value;
+        setFormData({ ...formData, offer_pricings: newPricings });
     };
 
     return (
@@ -72,11 +111,59 @@ export const DisplayOffers = () => {
                     <form onSubmit={handleUpdate}>
                         <div>
                             <label>Name</label>
-                            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                            />
                         </div>
                         <div>
                             <label>Description</label>
-                            <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                            <textarea
+                                name="description"
+                                value={formData.description}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div>
+                            <label>Offer Lines</label>
+                            {editOffer.offer_lines.map(line => (
+                                <div key={line.id}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.offer_lines[line.id] || false}
+                                            onChange={() => handleLineChange(line.id)}
+                                        />
+                                        {line.name}
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            <label>Offer Pricings</label>
+                            {formData.offer_pricings.map((pricing, index) => (
+                                <div key={index}>
+                                    <label>Time Type</label>
+                                    <select
+                                        value={pricing.offer_time_type_id}
+                                        onChange={(e) => handlePricingChange(index, 'offer_time_type_id', e.target.value)}
+                                    >
+                                        {editOffer?.available_time_types?.map(type => (
+                                            <option key={type.id} value={type.id}>
+                                                {type.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <label>Price</label>
+                                    <input
+                                        type="number"
+                                        value={pricing.price}
+                                        onChange={(e) => handlePricingChange(index, 'price', e.target.value)}
+                                    />
+                                </div>
+                            ))}
                         </div>
                         <button type="submit">Update Offer</button>
                         <button type="button" onClick={() => setEditOffer(null)}>Cancel</button>

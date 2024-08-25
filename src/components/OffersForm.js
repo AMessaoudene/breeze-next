@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {axios} from '@/lib/axios'
+import { axios } from '@/lib/axios';
 import useSWR from 'swr';
 
 const fetcher = url => 
@@ -10,10 +10,27 @@ const fetcher = url =>
     });
 
 export const OffersForm = () => {
-    const { data: offers, error, mutate } = useSWR('/api/offers', fetcher);
-
+    const { data: offerLines, error: offerLinesError } = useSWR('/api/offerlines', fetcher);
+    const { data: offerTimeTypes, error: offerTimeTypesError } = useSWR('/api/offertimetypes', fetcher);
+    
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [selectedOfferLines, setSelectedOfferLines] = useState({});
+    const [offerPricing, setOfferPricing] = useState({});
+
+    const handleOfferLineChange = (offerLineId) => {
+        setSelectedOfferLines(prev => ({
+            ...prev,
+            [offerLineId]: !prev[offerLineId]
+        }));
+    };
+
+    const handlePricingChange = (offerTimeTypeId, value) => {
+        setOfferPricing(prev => ({
+            ...prev,
+            [offerTimeTypeId]: value
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,33 +38,81 @@ export const OffersForm = () => {
             const newOffer = {
                 name,
                 description,
+                offer_lines: selectedOfferLines,
+                offer_pricings: Object.entries(offerPricing).map(([offer_time_type_id, price]) => ({
+                    offer_time_type_id,
+                    price,
+                })),
             };
             await axios.post('/api/offers', newOffer);
-            mutate();
+            // Reset form state after successful submission
             setName('');
             setDescription('');
+            setSelectedOfferLines({});
+            setOfferPricing({});
         } catch (error) {
             console.error(error);
         }
     };
+    
+    
 
-    if (error) return <div>Failed to load</div>;
-    if (!offers) return <div>Loading...</div>;
+    if (offerLinesError || offerTimeTypesError) return <div>Failed to load</div>;
+    if (!offerLines || !offerTimeTypes) return <div>Loading...</div>;
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div>
-                    <label>Description</label>
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-                </div>
-                <button type="submit">Create Offer</button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Name</label>
+                <input 
+                    type="text" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                    required 
+                />
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea 
+                    value={description} 
+                    onChange={(e) => setDescription(e.target.value)} 
+                />
+            </div>
+
+            <div>
+                <h2>Select Offer Lines</h2>
+                {offerLines.map(offerLine => (
+                    <div key={offerLine.id}>
+                        <label>
+                            <input 
+                                type="checkbox" 
+                                checked={selectedOfferLines[offerLine.id] || false} 
+                                onChange={() => handleOfferLineChange(offerLine.id)} 
+                            />
+                            {offerLine.name}
+                        </label>
+                    </div>
+                ))}
+            </div>
+
+            <div>
+                <h2>Set Pricing for Offer Time Types</h2>
+                {offerTimeTypes.map(offerTimeType => (
+                    <div key={offerTimeType.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <label style={{ marginRight: '10px' }}>{offerTimeType.name}</label>
+                        <input 
+                            type="number" 
+                            value={offerPricing[offerTimeType.id] || ''} 
+                            onChange={(e) => handlePricingChange(offerTimeType.id, e.target.value)} 
+                            placeholder="Enter price"
+                            required 
+                        />
+                    </div>
+                ))}
+            </div>
+
+            <button type="submit">Create Offer</button>
+        </form>
     );
 };
 
