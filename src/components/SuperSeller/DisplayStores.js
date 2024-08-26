@@ -36,7 +36,8 @@ export const DisplayStores = () => {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Reports</th>
+                        <th>Icon</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -46,6 +47,16 @@ export const DisplayStores = () => {
                             <tr key={store.id}>
                                 <td>{store.name}</td>
                                 <td>
+                                    {store.icon && (
+                                        <img src={store.icon} alt="Store Icon" width="50" height="50" />
+                                    )}
+                                </td>
+                                <td>
+                                    {store.image && (
+                                        <img src={store.image} alt="Store Image" width="50" height="50" />
+                                    )}
+                                </td>
+                                <td>
                                     <button onClick={() => handleDelete(store.id)} disabled={loading[store.id]}>
                                         {loading[store.id] ? 'Deleting...' : 'Delete'}
                                     </button>
@@ -54,7 +65,7 @@ export const DisplayStores = () => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="2">No stores available</td>
+                            <td colSpan="4">No stores available</td>
                         </tr>
                     )}
                 </tbody>

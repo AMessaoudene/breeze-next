@@ -10,7 +10,7 @@ import { DisplayAccounts } from '@/components/DisplayAccounts'
 import { ContactsForm } from '@/components/ContactsForm'
 import { DisplayContactsForm } from '@/components/DisplayContactsForm'
 import SocialMediasForm from '@/components/SocialMediasForm'
-import { DisplayStores } from '@/components/DisplayStores'
+import { DisplayStores } from '@/components/SuperSeller/DisplayStores'
 import { DisplayRoles } from '@/components/DisplayRoles'
 import PaymentMethodsForm from '@/components/PaymentMethodsForm'
 import RolesForm from '@/components/RolesForm'
@@ -21,6 +21,8 @@ import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
 import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
 import ArticlesForm from '@/components/Seller/ArticlesForm'
 import ArticleCategoriesForm from '@/components/Admin/ArticleCategoriesForm'
+import StoreForm from '@/components/SuperSeller/StoreForm'
+import Stores from '@/components/Admin/Stores'
 
 export const metadata = {
     title: 'Dashboard',
@@ -58,6 +60,8 @@ const Dashboard = () => {
                             <MembershipInvitations/>
                             <ArticlesForm/>
                             <ArticleCategoriesForm/>
+                            <StoreForm/>
+                            <Stores/>
                         </div>
                     </div>
                 </div>
