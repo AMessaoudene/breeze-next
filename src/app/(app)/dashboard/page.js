@@ -22,7 +22,6 @@ import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
 import ArticlesForm from '@/components/Seller/ArticlesForm'
 import ArticleCategoriesForm from '@/components/Admin/ArticleCategoriesForm'
 import StoreForm from '@/components/SuperSeller/StoreForm'
-import Stores from '@/components/Admin/Stores'
 
 export const metadata = {
     title: 'Dashboard',
@@ -61,7 +60,6 @@ const Dashboard = () => {
                             <ArticlesForm/>
                             <ArticleCategoriesForm/>
                             <StoreForm/>
-                            <Stores/>
                         </div>
                     </div>
                 </div>
