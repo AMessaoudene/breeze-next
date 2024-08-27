@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { axios } from '@/lib/axios';
 import useSWR from 'swr';
+import Label from '@/components/Label';
+import Input from '@/components/Input'
 
 const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
     console.error('Error fetching data:', error);
@@ -65,8 +67,8 @@ export const ArticlesForm = () => {
             <h1>Articles CRUD</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Code</label>
-                    <input
+                    <Label>Code</Label>
+                    <Input
                         type="text"
                         name="code"
                         value={article.code}
@@ -75,8 +77,8 @@ export const ArticlesForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Name</label>
-                    <input
+                    <Label>Name</Label>
+                    <Input
                         type="text"
                         name="name"
                         value={article.name}
@@ -85,7 +87,7 @@ export const ArticlesForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Description</label>
+                    <Label>Description</Label>
                     <textarea
                         name="description"
                         value={article.description}
@@ -93,8 +95,8 @@ export const ArticlesForm = () => {
                     ></textarea>
                 </div>
                 <div>
-                    <label>Barcode</label>
-                    <input
+                    <Label>Barcode</Label>
+                    <Input
                         type="text"
                         name="barcode"
                         value={article.barcode}
@@ -102,8 +104,8 @@ export const ArticlesForm = () => {
                     />
                 </div>
                 <div>
-                    <label>SKU</label>
-                    <input
+                    <Label>SKU</Label>
+                    <Input
                         type="text"
                         name="sku"
                         value={article.sku}
@@ -111,8 +113,8 @@ export const ArticlesForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Price</label>
-                    <input
+                    <Label>Price</Label>
+                    <Input
                         type="number"
                         name="price"
                         value={article.price}
@@ -121,8 +123,8 @@ export const ArticlesForm = () => {
                     />
                 </div>
                 <div>
-                    <label>Status</label>
-                    <input
+                    <Label>Status</Label>
+                    <Input
                         type="checkbox"
                         name="status"
                         checked={article.status}
