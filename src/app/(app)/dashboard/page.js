@@ -24,6 +24,7 @@ import ArticleCategoriesForm from '@/components/Admin/ArticleCategoriesForm'
 import StoreForm from '@/components/SuperSeller/StoreForm'
 import DiscountForm from '@/components/Seller/DiscountsForm'
 import { DisplayDiscounts } from '@/components/DisplayDiscounts'
+import FastOrder from '@/components/OrderConfirmer/FastOrder'
 
 export const metadata = {
     title: 'Dashboard',
@@ -64,6 +65,7 @@ const Dashboard = () => {
                             <StoreForm/>
                             <DiscountForm/>
                             <DisplayDiscounts/>
+                            <FastOrder/>
                         </div>
                     </div>
                 </div>
