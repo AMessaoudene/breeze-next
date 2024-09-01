@@ -25,7 +25,12 @@ import StoreForm from '@/components/SuperSeller/StoreForm'
 import DiscountForm from '@/components/Seller/DiscountsForm'
 import { DisplayDiscounts } from '@/components/DisplayDiscounts'
 import FastOrder from '@/components/OrderConfirmer/FastOrder'
-import CustomerForm from '@/components/OrderConfirmer/CustomerForm'
+import ShipmentLinesForm from '@/components/Seller/ShipmentLinesForm'
+import { DisplayShipmentLines } from '@/components/Seller/DisplayShipmentLines'
+import { ShipmentTypesForm } from '@/components/Admin/ShipmentTypesForm'
+import { DisplayShipmentTypes } from '@/components/Admin/DisplayShipmentTypes'
+import { ShipmentPricingForm } from '@/components/Seller/ShipmentPricingForm'
+import { DisplayShipmentPricings } from '@/components/Seller/DisplayShipmentPricings'
 
 export const metadata = {
     title: 'Dashboard',
@@ -67,7 +72,12 @@ const Dashboard = () => {
                             <DiscountForm/>
                             <DisplayDiscounts/>
                             <FastOrder/>
-                            <CustomerForm/>
+                            <ShipmentLinesForm/>
+                            <DisplayShipmentLines/>
+                            <ShipmentTypesForm/>
+                            <DisplayShipmentTypes/>
+                            <ShipmentPricingForm/>
+                            <DisplayShipmentPricings/>
                         </div>
                     </div>
                 </div>
