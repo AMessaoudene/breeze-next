@@ -9,14 +9,12 @@ import { DisplayOfferLinesStatuses } from '@/components/DisplayOfferLinesStatuse
 import { DisplayAccounts } from '@/components/DisplayAccounts'
 import { ContactsForm } from '@/components/ContactsForm'
 import { DisplayContactsForm } from '@/components/DisplayContactsForm'
-import SocialMediasForm from '@/components/SocialMediasForm'
 import { DisplayStores } from '@/components/SuperSeller/DisplayStores'
 import { DisplayRoles } from '@/components/DisplayRoles'
 import PaymentMethodsForm from '@/components/PaymentMethodsForm'
 import RolesForm from '@/components/RolesForm'
 import { Notifications } from '@/components/Notifications'
 import Profile from '@/components/Profile'
-import Home from '@/components/Home'
 import ManageAccounts from '@/components/SuperSeller/ManageAccounts'
 import MembershipInvitations from '@/components/SuperSeller/MembersInvitations'
 import ArticlesForm from '@/components/Seller/ArticlesForm'
@@ -37,6 +35,9 @@ export const metadata = {
     title: 'Dashboard',
     description: 'Dashboard',
     keywords: 'Dashboard',
+    author: 'Abdou',
+    creator: 'Abdou',
+    publisher: 'Abdou',
 }
 
 const Dashboard = () => {
@@ -58,13 +59,11 @@ const Dashboard = () => {
                             <DisplayAccounts/>
                             <ContactsForm/>
                             <DisplayContactsForm/>
-                            <SocialMediasForm/>
                             <DisplayStores/>
                             <RolesForm/>
                             <DisplayRoles/>
                             <PaymentMethodsForm/>
                             <Profile/>
-                            <Home/>
                             <ManageAccounts/>
                             <MembershipInvitations/>
                             <ArticlesForm/>

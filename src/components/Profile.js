@@ -9,24 +9,36 @@ const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
     throw error;
 });
 
+const sanitizeInput = (input) => {
+    // Trim whitespace and sanitize HTML entities
+    const trimmedInput = input.trim();
+    const sanitizedInput = trimmedInput.replace(/[<>]/g, ''); // Example: Remove angle brackets
+    return sanitizedInput;
+};
+
 export const ProfileForm = () => {
     const { data: user, error: userError, mutate } = useSWR('/api/profile', fetcher);
 
     const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');    
 
     useEffect(() => {
         if (user) {
             setName(user.name || '');
+            setSurname(user.surname || '');
             setEmail(user.email || '');
         }
     }, [user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Sanitize inputs before submitting
         const formData = {
-            name,
-            email,
+            name: sanitizeInput(name),
+            surname: sanitizeInput(surname),
+            email: sanitizeInput(email),
         };
 
         try {
@@ -54,7 +66,20 @@ export const ProfileForm = () => {
                         type="text"
                         name="name"
                         value={name}
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => setName(sanitizeInput(e.target.value))}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="surname">
+                        Surname
+                    </label>
+                    <input
+                        type="text"
+                        name="surname"
+                        value={surname}
+                        onChange={e => setSurname(sanitizeInput(e.target.value))}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                     />
@@ -67,7 +92,7 @@ export const ProfileForm = () => {
                         type="email"
                         name="email"
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={e => setEmail(sanitizeInput(e.target.value))}
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         required
                     />
