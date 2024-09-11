@@ -3,7 +3,7 @@
 import Header from '@/app/(app)/Header';
 import { Notifications } from '@/components/Notifications';
 
-const OffersPage = () => {
+const AboutUsPage = () => {
     return (
         <>
             <Header title="Profile Page" />
@@ -20,4 +20,4 @@ const OffersPage = () => {
     );
 };
 
-export default OffersPage;
+export default AboutUsPage;
