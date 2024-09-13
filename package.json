@@ -9,6 +9,10 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix"
   },
+  "resolutions": {
+    "@next/swc-win32-x64-msvc": "false"
+  },
+
   "dependencies": {
     "@headlessui/react": "^1.4.2",
     "@next/swc-win32-x64-msvc": "^14.2.5",
